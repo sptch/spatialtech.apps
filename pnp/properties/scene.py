@@ -13,7 +13,6 @@ from bpy.props import (
 )
 from bpy.types import Scene
 
-
 class SceneProperties(bpy.types.PropertyGroup):
     # register scene boolean property live_camera_track
 
@@ -29,6 +28,7 @@ class SceneProperties(bpy.types.PropertyGroup):
     )
 
 
+
 def register():
     bpy.utils.register_class(SceneProperties)
     bpy.types.Scene.scene_properties = PointerProperty(type=SceneProperties)
@@ -39,10 +39,16 @@ def register():
         name="",
         default="",
         description="Camera PnP Solver Message")
+
+        
+
     bpy.types.Scene.pnp_clip_name = bpy.props.StringProperty(
         name="",
         default="",
         description="Camera PnP Solver Clip Name")
+    bpy.types.Scene.my_string = bpy.props.StringProperty(name="Search", default="")
+    bpy.types.Scene.my_string_1 = bpy.props.StringProperty(name="Ser", default="")
+    bpy.types.Scene.pnp_string = bpy.props.StringProperty(name="String", default="")
 
 
 def unregister():
@@ -50,3 +56,6 @@ def unregister():
     bpy.utils.unregister_class(SceneProperties)
     del bpy.types.Scene.pnp_collection
     del bpy.types.Scene.campnp_msg
+    del bpy.types.Scene.my_string
+    del bpy.types.Scene.my_string_1
+    del bpy.types.Scene.pnp_string
