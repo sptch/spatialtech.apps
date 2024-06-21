@@ -17,10 +17,12 @@ def get_scene_info(self, context):
         self.report({'ERROR'}, 'Please load an image in the clip editor')
     size = clip.size
 
-    clipcam = clip.tracking.camera
+
+    clipcam = clip.tracking
+
     # clip.tracking.camera.focal_length = 20
-    focal = clipcam.focal_length_pixels
-    optcent = clipcam.principal
+    focal = clipcam.camera.focal_length_pixels
+    optcent = clipcam.camera.principal_point_pixels
     # take radial distortion parameters:
     k1, k2, k3 = 0, 0, 0
     # if clipcam.distortion_model == 'POLYNOMIAL':
@@ -31,6 +33,7 @@ def get_scene_info(self, context):
     #     k1, k2, k3 = 0.0, 0.0, 0.0
     #     self.report(
     #         {'WARNING'}, 'Current distortion model is not supported, use Polynomial instead.')
+
 
     # get current frame to retrieve marker locations
     frame = bpy.data.scenes[0].frame_current
@@ -181,8 +184,8 @@ def solve_pnp(self, context, clip, points3d, points2d, camintr, distcoef, size, 
         render_size[1] <= size[0]/size[1] else 'VERTICAL'
     refsize = size[0] if render_size[0] / \
         render_size[1] <= size[0]/size[1] else size[1]
-    camd.shift_x = (size[0]*0.5 - clip.tracking.camera.principal[0])/refsize
-    camd.shift_y = (size[1]*0.5 - clip.tracking.camera.principal[1])/refsize
+    camd.shift_x = (size[0]*0.5 - clip.tracking.camera.principal_point_pixels[0])/refsize
+    camd.shift_y = (size[1]*0.5 - clip.tracking.camera.principal_point_pixels[1])/refsize
 
 
     cam.matrix_world = Matrix.Translation(loc) @ rot.to_4x4()

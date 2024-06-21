@@ -86,7 +86,7 @@ class CLIP_PT_pnp_lens(Panel):
         col = layout.column()
         col.prop(camera, "focal_length")
         col = layout.column()
-        col.prop(clip.tracking.camera, "principal", text="Optical Center")
+        col.prop(clip.tracking.camera, "principal_point_pixels", text="Optical Center")
         col.operator("clip.set_center_principal", text="Set Center")
 
         col = layout.column()
