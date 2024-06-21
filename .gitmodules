@@ -1,0 +1,3 @@
+[submodule "photomatch"]
+	path = photomatch
+	url = git@github.com:sptch/image-matcher.git
